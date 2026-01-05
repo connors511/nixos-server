@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   programs.adb.enable = true;
-  users.users.edgar.extraGroups = ["adbusers"];
+  users.users.mlarsen.extraGroups = ["adbusers"];
   environment.systemPackages = with pkgs; [
     adbfs-rootless
   ];

@@ -3,22 +3,22 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 {pkgs, ...}: {
   imports = [
-    ./android.nix
+#    ./android.nix
     ./backup.nix
     ./home-manager.nix
-    ./mosh.nix
-    ./nfs.nix
+#    ./mosh.nix
+#    ./nfs.nix
     ./nix.nix
     ./nixpkgs.nix
-    ./nh.nix
-    ./ntfs.nix
-    ./oomd.nix
+#    ./nh.nix
+#    ./ntfs.nix
+#    ./oomd.nix
     ./openssh.nix
     ./sops.nix
     ./systemd-boot.nix
-    ./tailscale.nix
+#    ./tailscale.nix
     ./users.nix
-    ./xdg.nix
+#    ./xdg.nix
   ];
 
   # azerty

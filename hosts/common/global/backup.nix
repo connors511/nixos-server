@@ -55,25 +55,25 @@
     keep_monthly = 6;
     keep_yearly = 1;
 
-    checks = [
-      {
-        name = "repository";
-      }
-      {
-        name = "spot";
-        frequency = "1 week";
-        count_tolerance_percentage = 10;
-        data_sample_percentage = 10;
-        data_tolerance_percentage = 0.5;
-        xxh64sum_command = pkgs.writeShellScript "xxhash64" ''
-          exec ${pkgs.xxHash}/bin/xxhsum -H64 "$1"
-        '';
-      }
-    ];
+#    checks = [
+#      {
+#        name = "repository";
+#      }
+#      {
+#        name = "spot";
+#        frequency = "1 week";
+#        count_tolerance_percentage = 10;
+#        data_sample_percentage = 10;
+#        data_tolerance_percentage = 0.5;
+#        xxh64sum_command = pkgs.writeShellScript "xxhash64" ''
+#          exec ${pkgs.xxHash}/bin/xxhsum -H64 "$1"
+#        '';
+#      }
+#    ];
 
-    ssh_command = "${pkgs.openssh}/bin/ssh -oBatchMode=yes -i ${config.sops.secrets.guekka-backup-domino-ssh.path}";
+    ssh_command = "${pkgs.openssh}/bin/ssh -oBatchMode=yes -i ${config.sops.secrets.mlarsen-backup-ssh.path}";
 
-    healthchecks.ping_url = "https://hc-ping.com/5546438b-6945-4e1e-93cf-31338745aab4";
+    healthchecks.ping_url = "https://hc-ping.com/db0ac8fa-0bcf-4e77-b8cf-2b50eaaa3449";
   };
 in {
   services.borgmatic = {
@@ -84,16 +84,9 @@ in {
           baseConfig
           // {
             repositories = [
-              # TODO: investigate why the NAS crashes
-              /*
-              {
-                label = "samba-${config.networking.hostName}";
-                path = "/samba/borg/${config.networking.hostName}";
-              }
-              */
               {
                 label = "ssh-${config.networking.hostName}";
-                path = "ssh://guekka-backup@domino.zdimension.fr/./${config.networking.hostName}";
+                path = "ssh://u413036@backup.mlad.dk:23/./${config.networking.hostName}";
               }
             ];
             source_directories = [
@@ -106,22 +99,15 @@ in {
       }
       //
       # TODO: maybe move this to a separate file
-      lib.optionalAttrs (config.networking.hostName == "horus")
+      lib.optionalAttrs (config.networking.hostName == "svr1")
       {
         "shared" =
           baseConfig
           // {
             repositories = [
-              # TODO: investigate why the NAS crashes
-              /*
-              {
-                label = "samba-shared";
-                path = "/samba/borg/shared";
-              }
-              */
               {
                 label = "ssh-shared";
-                path = "ssh://guekka-backup@domino.zdimension.fr/./shared";
+                path = "ssh://u413036@backup.mlad.dk:23/./shared";
               }
             ];
             source_directories = [
@@ -133,7 +119,7 @@ in {
       };
   };
 
-  sops.secrets.guekka-backup-domino-ssh.sopsFile = ../secrets.yaml;
+  sops.secrets.mlarsen-backup-ssh.sopsFile = ../secrets.yaml;
 
   systemd.timers.borgmatic = {
     enable = true;

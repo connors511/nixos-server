@@ -42,5 +42,5 @@
   # Read the doc before updating
   system.stateVersion = "22.11";
   hardware.openrazer.enable = true;
-  hardware.openrazer.users = ["edgar"];
+  hardware.openrazer.users = ["mlarsen"];
 }

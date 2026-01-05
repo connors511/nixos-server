@@ -3,7 +3,7 @@
   pkgs,
   ...
 }: let
-  library = "/shared/edgar/books";
+  library = "/shared/mlarsen/books";
 in {
   services = {
     calibre-server = {

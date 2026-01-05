@@ -1,7 +1,7 @@
 {
   services.openssh = {
     enable = true;
-    allowSFTP = true;
+    allowSFTP = false;
     settings = {
       KbdInteractiveAuthentication = false;
       PasswordAuthentication = false;

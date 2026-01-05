@@ -21,7 +21,7 @@ in {
     };
     inherit port;
     passwordFile = config.sops.secrets.paperless.path;
-    consumptionDir = "/shared/edgar/documents/paperless";
+    consumptionDir = "/shared/mlarsen/documents/paperless";
     consumptionDirIsPublic = true;
   };
 

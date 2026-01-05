@@ -39,5 +39,9 @@
         rm -rf $out/tmp
       '';
     });
+
+#    node-red = prev.node-red.override {
+#      systemd.services.node-red.path = pkgs: with pkgs; [ pkgs.git ];
+#    };
   };
 }

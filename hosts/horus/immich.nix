@@ -3,8 +3,8 @@
 
   immichRoot = "/var/lib/immich";
   immichPhotosWithoutLibrary = "${immichRoot}/photos";
-  # The original photos are accessible at /shared/edgar/immich/library
-  immichLibrary = "/shared/edgar/immich/library";
+  # The original photos are accessible at /shared/mlarsen/immich/library
+  immichLibrary = "/shared/mlarsen/immich/library";
   immichAppdataRoot = "${immichRoot}/appdata";
   immichVersion = "release";
 

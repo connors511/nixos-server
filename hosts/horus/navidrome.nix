@@ -2,7 +2,7 @@
   services.navidrome = {
     enable = true;
     settings = {
-      MusicFolder = "/shared/edgar/music";
+      MusicFolder = "/shared/mlarsen/music";
     };
   };
 

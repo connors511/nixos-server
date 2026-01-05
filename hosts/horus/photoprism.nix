@@ -3,7 +3,7 @@
     enable = true;
     passwordFile = config.sops.secrets.photoprismPass.path;
 
-    originalsPath = "/shared/edgar/Pictures";
+    originalsPath = "/shared/mlarsen/Pictures";
   };
 
   sops.secrets.photoprismPass = {

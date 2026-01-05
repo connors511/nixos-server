@@ -2,6 +2,8 @@ keys:
   - &deimos age1npfazzgfgqfehghc4wszgqjl337ghae0xv352jaxy092s9ewzglsfmkxu7
   - &horus age1dt24qetqhy2ng53fyj69yq9hg8rdsg4ep0lvvhdg69xw9v4l0asqj6xzkh
   - &hestia age1anhvzwlgkpe985jkk863v0p8tv6rrweeg7k6k6kfwz708j3tte5suvphdn
+  - &mac age1uklvgjw0zfn5qy8qcaggl0g9x3dk8ysq9f3my500vm567rkd2syqkxqgtw
+  - &svr1 age1pwh9gn95nf9p7t5u9tnfgejqm9wseak4sml2sm9vztd9j5dp0e8skknxln
 creation_rules:
   - path_regex: hosts/deimos/secrets.yaml$
     key_groups:
@@ -13,11 +15,28 @@ creation_rules:
       - *horus
   - path_regex: hosts/hestia/secrets.yaml$
     key_groups:
-    - age:
-      - *hestia
+      - age:
+          - *hestia
+  - path_regex: hosts/svr1/secrets.yaml$
+    key_groups:
+      - age:
+          - *mac
+          - *svr1
   - path_regex: hosts/common/secrets.yaml$
     key_groups:
-    - age:
-      - *deimos
-      - *horus
-      - *hestia
+      - age:
+          - *deimos
+          - *horus
+          - *hestia
+          - *mac
+          - *svr1
+  - path_regex: hosts/common/secrets/*
+    key_groups:
+      - age:
+          - *mac
+          - *svr1
+  - path_regex: hosts/svr1/secrets/*
+    key_groups:
+      - age:
+          - *mac
+          - *svr1

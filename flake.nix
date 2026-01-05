@@ -15,6 +15,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    teslamate = {
+      url = "github:teslamate-org/teslamate";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     hardware.url = "github:nixos/nixos-hardware";
 
     hyprland = {
@@ -66,7 +71,7 @@
         pkgs = nixpkgs.legacyPackages.${system};
         extraSpecialArgs = {inherit (self) inputs outputs;};
         modules = [
-          ./home/edgar/${host}.nix
+          ./home/mlarsen/${host}.nix
         ];
       };
   in {
@@ -85,12 +90,14 @@
       horus = mkNixos "horus" "aarch64-linux";
       hestia = mkNixos "hestia" "x86_64-linux";
       deimos = mkNixos "deimos" "x86_64-linux";
+      svr1 = mkNixos "svr1" "x86_64-linux";
     };
 
     homeConfigurations = {
-      "edgar@horus" = mkHome "horus" "aarch64-linux";
-      "edgar@hestia" = mkHome "hestia" "x86_64-linux";
-      "edgar@deimos" = mkHome "deimos" "x86_64-linux";
+      "mlarsen@horus" = mkHome "horus" "aarch64-linux";
+      "mlarsen@hestia" = mkHome "hestia" "x86_64-linux";
+      "mlarsen@deimos" = mkHome "deimos" "x86_64-linux";
+      "mlarsen@svr1" = mkHome "svr1" "x86_64-linux";
     };
   };
 }
