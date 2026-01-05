@@ -9,11 +9,11 @@
     [
       inputs.nix-colors.homeManagerModules.default
 
-      ./atuin.nix
+#      ./atuin.nix
       ./bash.nix
       ./bat.nix
       ./bottom.nix
-      ./calendar.nix
+#      ./calendar.nix
       ./direnv.nix
       ./eza.nix
       ./fish.nix
@@ -36,7 +36,7 @@
   colorScheme = inputs.nix-colors.colorSchemes.selenized-light;
 
   home = {
-    username = "edgar";
+    username = "mlarsen";
     homeDirectory = "/home/${config.home.username}";
     stateVersion = "22.11";
   };

@@ -23,8 +23,8 @@
       remote = {
         type = "caldav";
         url = "https://nc.bizel.fr/remote.php/dav";
-        userName = "edgar";
-        passwordCommand = ["${pkgs.bat}/bin/bat" "-p" "/home/edgar/secrets/nextcloud_pass"];
+        userName = "mlarsen";
+        passwordCommand = ["${pkgs.bat}/bin/bat" "-p" "/home/mlarsen/secrets/nextcloud_pass"];
       };
     };
   };

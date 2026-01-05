@@ -7,7 +7,7 @@
     pkgs.vesktop
   ];
 
-  home.sessionVariables."DISCORD_USER_DATA_DIR" = "/home/edgar/.local/share/discord";
+  home.sessionVariables."DISCORD_USER_DATA_DIR" = "/home/mlarsen/.local/share/discord";
 
   # based on <https://github.com/Marcus-Arcadius/nixdots/blob/main/modules/home/programs/discocss/default.nix>
   xdg.configFile."Vencord/settings/quickCss.css".text = with config.colorscheme.palette; ''

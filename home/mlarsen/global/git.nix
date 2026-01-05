@@ -2,8 +2,8 @@
   programs.git = {
     enable = true;
 
-    userName = "Edgar B";
-    userEmail = "39066502+Guekka@users.noreply.github.com";
+    userName = "mlarsen";
+#    userEmail = "39066502+Guekka@users.noreply.github.com";
 
     aliases = {
       a = "add";
