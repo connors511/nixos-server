@@ -1,0 +1,58 @@
+{
+    "version": 3,
+    "source": "ff3-importer-1.5.2",
+    "created_at": "2024-11-30T10:43:57+01:00",
+    "date": "",
+    "default_account": 16,
+    "delimiter": "comma",
+    "headers": false,
+    "rules": true,
+    "skip_form": false,
+    "add_import_tag": true,
+    "roles": [
+        "date_transaction",
+        "description",
+        "amount",
+        "currency-code"
+    ],
+    "do_mapping": [
+        false,
+        false,
+        false,
+        false
+    ],
+    "mapping": [],
+    "duplicate_detection_method": "classic",
+    "ignore_duplicate_lines": false,
+    "unique_column_index": 0,
+    "unique_column_type": "external-id",
+    "flow": "nordigen",
+    "content_type": "unknown",
+    "custom_tag": "",
+    "identifier": "0",
+    "connection": "0",
+    "ignore_spectre_categories": false,
+    "grouped_transaction_handling": "",
+    "use_entire_opposing_address": false,
+    "map_all_data": false,
+    "accounts": {
+        "21d6d1e6-2e41-493c-a95c-36c5f2a64860": 21,
+        "521f5604-0f34-4cba-88ec-936e07d1afd4": 18,
+        "b3eb2a23-8296-4d4f-bb60-bd407a425abd": 17,
+        "b5020507-e669-44ed-9025-3c7779c4538a": 16,
+        "e8868e02-30bc-48bb-9149-7c61489ee42a": 20
+    },
+    "date_range": "range",
+    "date_range_number": 30,
+    "date_range_unit": "d",
+    "date_not_before": "2024-07-12",
+    "date_not_after": "2024-11-29",
+    "nordigen_country": "DK",
+    "nordigen_bank": "LAN_AND_SPAR_BANK_AS_LOSADKKK",
+    "nordigen_requisitions": {
+        "7276ae27-d000-4237-82c5-ea4a32e476f7": "5a091eed-85b8-44e7-a19a-79f6cb74f0c0"
+    },
+    "nordigen_max_days": "90",
+    "conversion": false,
+    "ignore_duplicate_transactions": true
+}
