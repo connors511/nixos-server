@@ -51,6 +51,7 @@
     ./changedetection-io.nix
     ./ntfy.nix
     ./proxies.nix
+    ./homepage.nix
   ];
 
   networking = {
