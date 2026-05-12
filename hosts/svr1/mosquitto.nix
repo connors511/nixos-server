@@ -19,6 +19,11 @@
     owner = "mosquitto";
     group = "mosquitto";
   };
+  sops.secrets."mqtt/pass/espaltherma" = {
+    sopsFile = ../common/secrets.yaml;
+    owner = "mosquitto";
+    group = "mosquitto";
+  };
 
   sops.secrets."mqtt/pass/govee" = {
     sopsFile = ../common/secrets.yaml;
@@ -51,6 +56,12 @@
               "readwrite #"
             ];
             passwordFile = config.sops.secrets."mqtt/pass/watts".path;
+          };
+          users.espaltherma = {
+            acl = [
+              "readwrite #"
+            ];
+            passwordFile = config.sops.secrets."mqtt/pass/espaltherma".path;
           };
           users.govee = {
             acl = [

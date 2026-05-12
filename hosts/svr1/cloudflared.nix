@@ -28,7 +28,16 @@
         default = "http_status:404";
         originRequest.noTLSVerify = true;
         ingress = {
+          "mlad.dk" = {
+            service = "http://localhost:80";
+          };
+          "ansikt.dk" = {
+            service = "http://localhost:80";
+          };
           "*.mlad.dk" = {
+            service = "http://localhost:80";
+          };
+          "*.ansikt.dk" = {
             service = "http://localhost:80";
           };
         };

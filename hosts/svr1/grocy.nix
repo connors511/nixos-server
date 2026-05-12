@@ -74,19 +74,19 @@ in
     ];
   };
 
-  virtualisation.oci-containers.containers = {
-      barcodebuddy = {
-        image = "f0rc3/barcodebuddy";
-        volumes = [ "/var/lib/barcodebuddy:/var/www/html" ];
-        autoStart = true;
-        ports = [ "${toString barcodeBuddyPort}:80" ];
-        environment = {
-          TZ = "Europe/Copenhagen";
-          BBUDDY_DISABLE_AUTHENTICATION = "true";
-          TRUSTED_PROXIES = "*";
-        };
-      };
-  };
+#  virtualisation.oci-containers.containers = {
+#      barcodebuddy = {
+#        image = "f0rc3/barcodebuddy";
+#        volumes = [ "/var/lib/barcodebuddy:/var/www/html" ];
+#        autoStart = true;
+#        ports = [ "${toString barcodeBuddyPort}:80" ];
+#        environment = {
+#          TZ = "Europe/Copenhagen";
+#          BBUDDY_DISABLE_AUTHENTICATION = "true";
+#          TRUSTED_PROXIES = "*";
+#        };
+#      };
+#  };
 
 
   services.nginx.virtualHosts."barcode.mlad.dk" = {

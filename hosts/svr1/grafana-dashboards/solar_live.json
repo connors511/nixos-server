@@ -1,0 +1,2159 @@
+{
+  "id": null,
+  "uid": "solar-live",
+  "title": "Solar — Live",
+  "tags": [
+    "solar",
+    "energy",
+    "pv"
+  ],
+  "timezone": "Europe/Copenhagen",
+  "schemaVersion": 39,
+  "version": 1,
+  "time": {
+    "from": "now/d",
+    "to": "now"
+  },
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "templating": {
+    "list": [
+      {
+        "name": "solar_installation_cost",
+        "type": "constant",
+        "query": "208000",
+        "current": {
+          "value": "208000",
+          "text": "208000"
+        },
+        "hide": 2
+      },
+      {
+        "name": "solar_installation_date",
+        "type": "constant",
+        "query": "1727740800",
+        "current": {
+          "value": "1727740800",
+          "text": "1727740800"
+        },
+        "hide": 2
+      }
+    ]
+  },
+  "panels": [
+    {
+      "id": 1,
+      "type": "row",
+      "title": "Real-time",
+      "collapsed": false,
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 24,
+        "h": 1
+      },
+      "panels": []
+    },
+    {
+      "id": 2,
+      "type": "stat",
+      "title": "Current PV Production",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "victoriametrics"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 1,
+        "w": 6,
+        "h": 4
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "victoriametrics"
+          },
+          "expr": "sum(hass_sensor_power_w{entity=~\"sensor.fronius_mppt_module_0_dc_power|sensor.fronius_mppt_module_1_dc_power\"})",
+          "legendFormat": "PV Production",
+          "refId": "A",
+          "editorMode": "code"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "watt",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 1000
+              },
+              {
+                "color": "green",
+                "value": 3000
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "auto",
+        "textMode": "auto",
+        "colorMode": "value"
+      }
+    },
+    {
+      "id": 3,
+      "type": "stat",
+      "title": "Current Load",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "victoriametrics"
+      },
+      "gridPos": {
+        "x": 6,
+        "y": 1,
+        "w": 6,
+        "h": 4
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "victoriametrics"
+          },
+          "expr": "-sum(hass_sensor_power_w{entity=\"sensor.solarnet_power_load\"})",
+          "legendFormat": "Load",
+          "refId": "A",
+          "editorMode": "code"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "watt",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 2000
+              },
+              {
+                "color": "red",
+                "value": 4000
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "auto",
+        "textMode": "auto",
+        "colorMode": "value"
+      }
+    },
+    {
+      "id": 4,
+      "type": "stat",
+      "title": "Current Grid Flow",
+      "description": "Positive = importing, negative = exporting",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "victoriametrics"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 1,
+        "w": 6,
+        "h": 4
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "victoriametrics"
+          },
+          "expr": "sum(hass_sensor_power_w{entity=\"sensor.smart_meter_ts_65a_3_real_power\"})",
+          "legendFormat": "Grid Flow",
+          "refId": "A",
+          "editorMode": "code"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "watt",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 1000
+              },
+              {
+                "color": "red",
+                "value": 3000
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "auto",
+        "textMode": "auto",
+        "colorMode": "value"
+      }
+    },
+    {
+      "id": 5,
+      "type": "stat",
+      "title": "Battery SoC",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "victoriametrics"
+      },
+      "gridPos": {
+        "x": 18,
+        "y": 1,
+        "w": 6,
+        "h": 4
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "victoriametrics"
+          },
+          "expr": "sum(hass_sensor_percent{entity=\"sensor.byd_battery_box_premium_hv_state_of_charge\"})",
+          "legendFormat": "Battery SoC",
+          "refId": "A",
+          "editorMode": "code"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 20
+              },
+              {
+                "color": "green",
+                "value": 50
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "auto",
+        "textMode": "auto",
+        "colorMode": "value"
+      }
+    },
+    {
+      "id": 6,
+      "type": "row",
+      "title": "Forecast",
+      "collapsed": false,
+      "gridPos": {
+        "x": 0,
+        "y": 5,
+        "w": 24,
+        "h": 1
+      },
+      "panels": []
+    },
+    {
+      "id": 7,
+      "type": "timeseries",
+      "title": "Total Production vs Forecast",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "victoriametrics"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 6,
+        "w": 8,
+        "h": 8
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "victoriametrics"
+          },
+          "expr": "(sum(hass_sensor_energy_wh{entity=~\"sensor.fronius_mppt_module_0_lifetime_energy|sensor.fronius_mppt_module_1_lifetime_energy\"})\n - scalar(sum(hass_sensor_energy_wh{entity=~\"sensor.fronius_mppt_module_0_lifetime_energy|sensor.fronius_mppt_module_1_lifetime_energy\"} @ start()))\n) / 1000",
+          "legendFormat": "Actual",
+          "refId": "A",
+          "editorMode": "code"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "victoriametrics"
+          },
+          "expr": "sum(hass_sensor_energy_kwh{entity=\"sensor.solcast_pv_forecast_forecast_today\"})",
+          "legendFormat": "Forecast",
+          "refId": "B",
+          "editorMode": "code"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "kwatth",
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 2,
+            "fillOpacity": 10,
+            "pointSize": 5,
+            "showPoints": "auto",
+            "spanNulls": false
+          },
+          "color": {
+            "mode": "palette-classic"
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Forecast"
+            },
+            "properties": [
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "fill": "dash",
+                  "dash": [
+                    10,
+                    10
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "calcs": []
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      }
+    },
+    {
+      "id": 8,
+      "type": "timeseries",
+      "title": "South Array vs Forecast",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "victoriametrics"
+      },
+      "gridPos": {
+        "x": 8,
+        "y": 6,
+        "w": 8,
+        "h": 8
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "victoriametrics"
+          },
+          "expr": "(sum(hass_sensor_energy_wh{entity=\"sensor.fronius_mppt_module_0_lifetime_energy\"})\n - scalar(sum(hass_sensor_energy_wh{entity=\"sensor.fronius_mppt_module_0_lifetime_energy\"} @ start()))\n) / 1000",
+          "legendFormat": "Actual",
+          "refId": "A",
+          "editorMode": "code"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "victoriametrics"
+          },
+          "expr": "sum(hass_sensor_energy_kwh{entity=\"sensor.south_facing\"})",
+          "legendFormat": "Forecast",
+          "refId": "B",
+          "editorMode": "code"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "kwatth",
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 2,
+            "fillOpacity": 10,
+            "pointSize": 5,
+            "showPoints": "auto",
+            "spanNulls": false
+          },
+          "color": {
+            "mode": "palette-classic"
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Forecast"
+            },
+            "properties": [
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "fill": "dash",
+                  "dash": [
+                    10,
+                    10
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "calcs": []
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      }
+    },
+    {
+      "id": 9,
+      "type": "timeseries",
+      "title": "North Array vs Forecast",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "victoriametrics"
+      },
+      "gridPos": {
+        "x": 16,
+        "y": 6,
+        "w": 8,
+        "h": 8
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "victoriametrics"
+          },
+          "expr": "(sum(hass_sensor_energy_wh{entity=\"sensor.fronius_mppt_module_1_lifetime_energy\"})\n - scalar(sum(hass_sensor_energy_wh{entity=\"sensor.fronius_mppt_module_1_lifetime_energy\"} @ start()))\n) / 1000",
+          "legendFormat": "Actual",
+          "refId": "A",
+          "editorMode": "code"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "victoriametrics"
+          },
+          "expr": "sum(hass_sensor_energy_kwh{entity=\"sensor.north_facing\"})",
+          "legendFormat": "Forecast",
+          "refId": "B",
+          "editorMode": "code"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "kwatth",
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 2,
+            "fillOpacity": 10,
+            "pointSize": 5,
+            "showPoints": "auto",
+            "spanNulls": false
+          },
+          "color": {
+            "mode": "palette-classic"
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Forecast"
+            },
+            "properties": [
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "fill": "dash",
+                  "dash": [
+                    10,
+                    10
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "calcs": []
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      }
+    },
+    {
+      "id": 10,
+      "type": "row",
+      "title": "Overview",
+      "collapsed": false,
+      "gridPos": {
+        "x": 0,
+        "y": 14,
+        "w": 24,
+        "h": 1
+      },
+      "panels": []
+    },
+    {
+      "id": 11,
+      "type": "gauge",
+      "title": "Self-Sufficiency Rate",
+      "description": "(1 - GridImport / Consumption) x 100",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "victoriametrics"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 15,
+        "w": 8,
+        "h": 6
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "victoriametrics"
+          },
+          "expr": "(1 - (sum(hass_sensor_energy_wh{entity=\"sensor.smart_meter_ts_65a_3_real_energy_consumed\"}) - scalar(sum(hass_sensor_energy_wh{entity=\"sensor.smart_meter_ts_65a_3_real_energy_consumed\"} @ start()))) / ((sum(hass_sensor_energy_wh{entity=~\"sensor.fronius_mppt_module_0_lifetime_energy|sensor.fronius_mppt_module_1_lifetime_energy\"}) - scalar(sum(hass_sensor_energy_wh{entity=~\"sensor.fronius_mppt_module_0_lifetime_energy|sensor.fronius_mppt_module_1_lifetime_energy\"} @ start()))) + (sum(hass_sensor_energy_wh{entity=\"sensor.smart_meter_ts_65a_3_real_energy_consumed\"}) - scalar(sum(hass_sensor_energy_wh{entity=\"sensor.smart_meter_ts_65a_3_real_energy_consumed\"} @ start()))) - (sum(hass_sensor_energy_wh{entity=\"sensor.smart_meter_ts_65a_3_real_energy_produced\"}) - scalar(sum(hass_sensor_energy_wh{entity=\"sensor.smart_meter_ts_65a_3_real_energy_produced\"} @ start()))))) * 100",
+          "legendFormat": "Self-Sufficiency",
+          "refId": "A",
+          "editorMode": "code"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "min": 0,
+          "max": 100,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 30
+              },
+              {
+                "color": "green",
+                "value": 60
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "auto",
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      }
+    },
+    {
+      "id": 12,
+      "type": "gauge",
+      "title": "Net Consumed from Grid",
+      "description": "GridImport - GridExport (negative = net exporter)",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "victoriametrics"
+      },
+      "gridPos": {
+        "x": 8,
+        "y": 15,
+        "w": 8,
+        "h": 6
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "victoriametrics"
+          },
+          "expr": "((sum(hass_sensor_energy_wh{entity=\"sensor.smart_meter_ts_65a_3_real_energy_consumed\"}) - scalar(sum(hass_sensor_energy_wh{entity=\"sensor.smart_meter_ts_65a_3_real_energy_consumed\"} @ start()))) - (sum(hass_sensor_energy_wh{entity=\"sensor.smart_meter_ts_65a_3_real_energy_produced\"}) - scalar(sum(hass_sensor_energy_wh{entity=\"sensor.smart_meter_ts_65a_3_real_energy_produced\"} @ start())))) / 1000",
+          "legendFormat": "Net Grid",
+          "refId": "A",
+          "editorMode": "code"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "kwatth",
+          "min": -30,
+          "max": 30,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 15
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "auto",
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      }
+    },
+    {
+      "id": 13,
+      "type": "gauge",
+      "title": "Self-Consumed Solar Energy",
+      "description": "(1 - GridExport / PVProduction) x 100",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "victoriametrics"
+      },
+      "gridPos": {
+        "x": 16,
+        "y": 15,
+        "w": 8,
+        "h": 6
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "victoriametrics"
+          },
+          "expr": "(1 -\n  (sum(hass_sensor_energy_wh{entity=\"sensor.smart_meter_ts_65a_3_real_energy_produced\"}) - scalar(sum(hass_sensor_energy_wh{entity=\"sensor.smart_meter_ts_65a_3_real_energy_produced\"} @ start())))\n  /\n  (sum(hass_sensor_energy_wh{entity=~\"sensor.fronius_mppt_module_0_lifetime_energy|sensor.fronius_mppt_module_1_lifetime_energy\"}) - scalar(sum(hass_sensor_energy_wh{entity=~\"sensor.fronius_mppt_module_0_lifetime_energy|sensor.fronius_mppt_module_1_lifetime_energy\"} @ start())))\n) * 100",
+          "legendFormat": "Self-Consumed",
+          "refId": "A",
+          "editorMode": "code"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "min": 0,
+          "max": 100,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 50
+              },
+              {
+                "color": "green",
+                "value": 70
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "auto",
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      }
+    },
+    {
+      "id": 14,
+      "type": "timeseries",
+      "title": "Power Flow",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "victoriametrics"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 21,
+        "w": 24,
+        "h": 8
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "victoriametrics"
+          },
+          "expr": "sum(hass_sensor_power_w{entity=~\"sensor.fronius_mppt_module_0_dc_power|sensor.fronius_mppt_module_1_dc_power\"})",
+          "legendFormat": "PV Production",
+          "refId": "A",
+          "editorMode": "code"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "victoriametrics"
+          },
+          "expr": "-sum(hass_sensor_power_w{entity=\"sensor.solarnet_power_load\"})",
+          "legendFormat": "Load",
+          "refId": "B",
+          "editorMode": "code"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "victoriametrics"
+          },
+          "expr": "sum(hass_sensor_power_w{entity=\"sensor.solarnet_power_grid_import\"})",
+          "legendFormat": "Grid Import",
+          "refId": "C",
+          "editorMode": "code"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "victoriametrics"
+          },
+          "expr": "-sum(hass_sensor_power_w{entity=\"sensor.solarnet_power_grid_export\"})",
+          "legendFormat": "Grid Export",
+          "refId": "D",
+          "editorMode": "code"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "victoriametrics"
+          },
+          "expr": "-sum(hass_sensor_power_w{entity=\"sensor.solarnet_power_battery_charge\"})",
+          "legendFormat": "Battery Charge",
+          "refId": "E",
+          "editorMode": "code"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "victoriametrics"
+          },
+          "expr": "sum(hass_sensor_power_w{entity=\"sensor.solarnet_power_battery_discharge\"})",
+          "legendFormat": "Battery Discharge",
+          "refId": "F",
+          "editorMode": "code"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "watt",
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 1,
+            "fillOpacity": 10,
+            "pointSize": 5,
+            "showPoints": "never",
+            "spanNulls": false
+          },
+          "color": {
+            "mode": "palette-classic"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "calcs": []
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      }
+    },
+    {
+      "id": 15,
+      "type": "stat",
+      "title": "Total PV Production",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "victoriametrics"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 29,
+        "w": 4,
+        "h": 4
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "victoriametrics"
+          },
+          "expr": "sum(hass_sensor_energy_wh{entity=~\"sensor.fronius_mppt_module_0_lifetime_energy|sensor.fronius_mppt_module_1_lifetime_energy\"}) / 1000",
+          "legendFormat": "PV Production",
+          "refId": "A",
+          "editorMode": "code"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "kwatth",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 5
+              },
+              {
+                "color": "green",
+                "value": 15
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "graphMode": "area",
+        "reduceOptions": {
+          "calcs": [
+            "diff"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "auto",
+        "textMode": "auto",
+        "colorMode": "value"
+      }
+    },
+    {
+      "id": 16,
+      "type": "stat",
+      "title": "Consumption",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "victoriametrics"
+      },
+      "gridPos": {
+        "x": 4,
+        "y": 29,
+        "w": 4,
+        "h": 4
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "victoriametrics"
+          },
+          "expr": "(sum(hass_sensor_energy_wh{entity=~\"sensor.fronius_mppt_module_0_lifetime_energy|sensor.fronius_mppt_module_1_lifetime_energy\"}) + sum(hass_sensor_energy_wh{entity=\"sensor.smart_meter_ts_65a_3_real_energy_consumed\"}) - sum(hass_sensor_energy_wh{entity=\"sensor.smart_meter_ts_65a_3_real_energy_produced\"})) / 1000",
+          "legendFormat": "Consumption",
+          "refId": "A",
+          "editorMode": "code"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "kwatth",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 10
+              },
+              {
+                "color": "red",
+                "value": 25
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "graphMode": "area",
+        "reduceOptions": {
+          "calcs": [
+            "diff"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "auto",
+        "textMode": "auto",
+        "colorMode": "value"
+      }
+    },
+    {
+      "id": 17,
+      "type": "stat",
+      "title": "Grid Import",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "victoriametrics"
+      },
+      "gridPos": {
+        "x": 8,
+        "y": 29,
+        "w": 4,
+        "h": 4
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "victoriametrics"
+          },
+          "expr": "sum(hass_sensor_energy_wh{entity=\"sensor.smart_meter_ts_65a_3_real_energy_consumed\"}) / 1000",
+          "legendFormat": "Grid Import",
+          "refId": "A",
+          "editorMode": "code"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "kwatth",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 5
+              },
+              {
+                "color": "red",
+                "value": 10
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "graphMode": "area",
+        "reduceOptions": {
+          "calcs": [
+            "diff"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "auto",
+        "textMode": "auto",
+        "colorMode": "value"
+      }
+    },
+    {
+      "id": 18,
+      "type": "stat",
+      "title": "Grid Export",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "victoriametrics"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 29,
+        "w": 4,
+        "h": 4
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "victoriametrics"
+          },
+          "expr": "sum(hass_sensor_energy_wh{entity=\"sensor.smart_meter_ts_65a_3_real_energy_produced\"}) / 1000",
+          "legendFormat": "Grid Export",
+          "refId": "A",
+          "editorMode": "code"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "kwatth",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 3
+              },
+              {
+                "color": "green",
+                "value": 8
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "graphMode": "area",
+        "reduceOptions": {
+          "calcs": [
+            "diff"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "auto",
+        "textMode": "auto",
+        "colorMode": "value"
+      }
+    },
+    {
+      "id": 19,
+      "type": "stat",
+      "title": "South Array",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "victoriametrics"
+      },
+      "gridPos": {
+        "x": 16,
+        "y": 29,
+        "w": 4,
+        "h": 4
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "victoriametrics"
+          },
+          "expr": "sum(hass_sensor_energy_wh{entity=\"sensor.fronius_mppt_module_0_lifetime_energy\"}) / 1000",
+          "legendFormat": "South Array",
+          "refId": "A",
+          "editorMode": "code"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "kwatth",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 3
+              },
+              {
+                "color": "green",
+                "value": 8
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "graphMode": "area",
+        "reduceOptions": {
+          "calcs": [
+            "diff"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "auto",
+        "textMode": "auto",
+        "colorMode": "value"
+      }
+    },
+    {
+      "id": 20,
+      "type": "stat",
+      "title": "North Array",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "victoriametrics"
+      },
+      "gridPos": {
+        "x": 20,
+        "y": 29,
+        "w": 4,
+        "h": 4
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "victoriametrics"
+          },
+          "expr": "sum(hass_sensor_energy_wh{entity=\"sensor.fronius_mppt_module_1_lifetime_energy\"}) / 1000",
+          "legendFormat": "North Array",
+          "refId": "A",
+          "editorMode": "code"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "kwatth",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 2
+              },
+              {
+                "color": "green",
+                "value": 5
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "graphMode": "area",
+        "reduceOptions": {
+          "calcs": [
+            "diff"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "auto",
+        "textMode": "auto",
+        "colorMode": "value"
+      }
+    },
+    {
+      "id": 21,
+      "type": "timeseries",
+      "title": "South vs North Comparison",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "victoriametrics"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 33,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "victoriametrics"
+          },
+          "expr": "sum(hass_sensor_power_w{entity=\"sensor.fronius_mppt_module_0_dc_power\"})",
+          "legendFormat": "South Array",
+          "refId": "A",
+          "editorMode": "code"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "victoriametrics"
+          },
+          "expr": "sum(hass_sensor_power_w{entity=\"sensor.fronius_mppt_module_1_dc_power\"})",
+          "legendFormat": "North Array",
+          "refId": "B",
+          "editorMode": "code"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "watt",
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 1,
+            "fillOpacity": 10,
+            "pointSize": 5,
+            "showPoints": "never",
+            "spanNulls": false
+          },
+          "color": {
+            "mode": "palette-classic"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "calcs": []
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      }
+    },
+    {
+      "id": 22,
+      "type": "timeseries",
+      "title": "Battery Power & SoC",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "victoriametrics"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 33,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "victoriametrics"
+          },
+          "expr": "-sum(hass_sensor_power_w{entity=\"sensor.solarnet_power_battery_charge\"})",
+          "legendFormat": "Battery Charge",
+          "refId": "A",
+          "editorMode": "code"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "victoriametrics"
+          },
+          "expr": "sum(hass_sensor_power_w{entity=\"sensor.solarnet_power_battery_discharge\"})",
+          "legendFormat": "Battery Discharge",
+          "refId": "B",
+          "editorMode": "code"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "victoriametrics"
+          },
+          "expr": "sum(hass_sensor_percent{entity=\"sensor.byd_battery_box_premium_hv_state_of_charge\"})",
+          "legendFormat": "Battery SoC",
+          "refId": "C",
+          "editorMode": "code"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "watt",
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 1,
+            "fillOpacity": 10,
+            "pointSize": 5,
+            "showPoints": "never",
+            "spanNulls": false
+          },
+          "color": {
+            "mode": "palette-classic"
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Battery SoC"
+            },
+            "properties": [
+              {
+                "id": "custom.axisPlacement",
+                "value": "right"
+              },
+              {
+                "id": "unit",
+                "value": "percent"
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "fill": "dash",
+                  "dash": [
+                    10,
+                    10
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "calcs": []
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      }
+    },
+    {
+      "id": 23,
+      "type": "row",
+      "title": "Financials",
+      "collapsed": false,
+      "gridPos": {
+        "x": 0,
+        "y": 41,
+        "w": 24,
+        "h": 1
+      },
+      "panels": []
+    },
+    {
+      "id": 24,
+      "type": "stat",
+      "title": "Import Cost",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "victoriametrics"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 42,
+        "w": 6,
+        "h": 4
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "victoriametrics"
+          },
+          "expr": "sum_over_time((\n  sum(increase(interpolate(hass_sensor_energy_wh{entity=\"sensor.smart_meter_ts_65a_3_real_energy_consumed\"})[5m])) / 1000\n  * on() group_left\n  keep_last_value(sum(hass_sensor_monetary_kr_per_kwh{entity=\"sensor.stromligning_current_price_vat\"}))\n)[$__range:5m])",
+          "legendFormat": "Import Cost",
+          "refId": "A",
+          "editorMode": "code"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "currencyDKK",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 20
+              },
+              {
+                "color": "red",
+                "value": 50
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "graphMode": "area",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "auto",
+        "textMode": "auto",
+        "colorMode": "value"
+      }
+    },
+    {
+      "id": 25,
+      "type": "stat",
+      "title": "Export Revenue",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "victoriametrics"
+      },
+      "gridPos": {
+        "x": 6,
+        "y": 42,
+        "w": 6,
+        "h": 4
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "victoriametrics"
+          },
+          "expr": "sum_over_time((\n  sum(increase(interpolate(hass_sensor_energy_wh{entity=\"sensor.smart_meter_ts_65a_3_real_energy_produced\"})[5m])) / 1000\n  * on() group_left\n  keep_last_value(sum(hass_sensor_monetary_kr_per_kwh{entity=\"sensor.stromligning_spotprice_ex_vat\"}))\n)[$__range:5m])",
+          "legendFormat": "Export Revenue",
+          "refId": "A",
+          "editorMode": "code"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "currencyDKK",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 10
+              },
+              {
+                "color": "green",
+                "value": 30
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "graphMode": "area",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "auto",
+        "textMode": "auto",
+        "colorMode": "value"
+      }
+    },
+    {
+      "id": 26,
+      "type": "stat",
+      "title": "Self-Consumption Savings",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "victoriametrics"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 42,
+        "w": 6,
+        "h": 4
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "victoriametrics"
+          },
+          "expr": "sum_over_time((\n  (\n    sum(increase(interpolate(hass_sensor_energy_wh{entity=~\"sensor.fronius_mppt_module_0_lifetime_energy|sensor.fronius_mppt_module_1_lifetime_energy\"})[5m]))\n    - sum(increase(interpolate(hass_sensor_energy_wh{entity=\"sensor.smart_meter_ts_65a_3_real_energy_produced\"})[5m]))\n    + sum(increase(interpolate(hass_sensor_energy_wh{entity=\"sensor.fronius_mppt_module_3_lifetime_energy\"})[5m]))\n    - sum(increase(interpolate(hass_sensor_energy_wh{entity=\"sensor.fronius_mppt_module_2_lifetime_energy\"})[5m]))\n  ) / 1000\n  * on() group_left\n  keep_last_value(sum(hass_sensor_monetary_kr_per_kwh{entity=\"sensor.stromligning_current_price_vat\"}))\n)[$__range:5m])",
+          "legendFormat": "Self-Consumption Savings",
+          "refId": "A",
+          "editorMode": "code"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "currencyDKK",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 20
+              },
+              {
+                "color": "green",
+                "value": 50
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "graphMode": "area",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "auto",
+        "textMode": "auto",
+        "colorMode": "value"
+      }
+    },
+    {
+      "id": 27,
+      "type": "stat",
+      "title": "Battery Charge Cost",
+      "description": "Cost of grid energy used to charge battery. Formula: min(battery_charge, grid_import) x import_price",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "victoriametrics"
+      },
+      "gridPos": {
+        "x": 18,
+        "y": 42,
+        "w": 6,
+        "h": 4
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "victoriametrics"
+          },
+          "expr": "sum_over_time((\n  (\n    sum(increase(interpolate(hass_sensor_energy_wh{entity=\"sensor.fronius_mppt_module_2_lifetime_energy\"})[5m]))\n    - clamp_min(\n        sum(increase(interpolate(hass_sensor_energy_wh{entity=\"sensor.fronius_mppt_module_2_lifetime_energy\"})[5m]))\n        - sum(increase(interpolate(hass_sensor_energy_wh{entity=\"sensor.smart_meter_ts_65a_3_real_energy_consumed\"})[5m])),\n        0\n      )\n  ) / 1000\n  * on() group_left\n  keep_last_value(sum(hass_sensor_monetary_kr_per_kwh{entity=\"sensor.stromligning_current_price_vat\"}))\n)[$__range:5m])",
+          "legendFormat": "Battery Charge Cost",
+          "refId": "A",
+          "editorMode": "code"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "currencyDKK",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 20
+              },
+              {
+                "color": "red",
+                "value": 50
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "graphMode": "area",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "auto",
+        "textMode": "auto",
+        "colorMode": "value"
+      }
+    },
+    {
+      "id": 28,
+      "type": "stat",
+      "title": "Net Savings",
+      "description": "Self-Consumption Savings + Export Revenue (battery charge cost is already embedded in self-consumption savings)",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "victoriametrics"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 46,
+        "w": 6,
+        "h": 4
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "victoriametrics"
+          },
+          "expr": "sum_over_time((\n  (\n    sum(increase(interpolate(hass_sensor_energy_wh{entity=~\"sensor.fronius_mppt_module_0_lifetime_energy|sensor.fronius_mppt_module_1_lifetime_energy\"})[5m]))\n    - sum(increase(interpolate(hass_sensor_energy_wh{entity=\"sensor.smart_meter_ts_65a_3_real_energy_produced\"})[5m]))\n    + sum(increase(interpolate(hass_sensor_energy_wh{entity=\"sensor.fronius_mppt_module_3_lifetime_energy\"})[5m]))\n    - sum(increase(interpolate(hass_sensor_energy_wh{entity=\"sensor.fronius_mppt_module_2_lifetime_energy\"})[5m]))\n  ) / 1000\n  * on() group_left\n  keep_last_value(sum(hass_sensor_monetary_kr_per_kwh{entity=\"sensor.stromligning_current_price_vat\"}))\n)[$__range:5m])\n+ sum_over_time((\n  sum(increase(interpolate(hass_sensor_energy_wh{entity=\"sensor.smart_meter_ts_65a_3_real_energy_produced\"})[5m])) / 1000\n  * on() group_left\n  keep_last_value(sum(hass_sensor_monetary_kr_per_kwh{entity=\"sensor.stromligning_spotprice_ex_vat\"}))\n)[$__range:5m])",
+          "legendFormat": "Net Savings",
+          "refId": "A",
+          "editorMode": "code"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "currencyDKK",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 20
+              },
+              {
+                "color": "green",
+                "value": 50
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "graphMode": "area",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "auto",
+        "textMode": "auto",
+        "colorMode": "value"
+      }
+    },
+    {
+      "id": 29,
+      "type": "stat",
+      "title": "ARR (Annualized Rate of Return)",
+      "description": "(NetSavings / daysInPeriod x 365 / InstallationCost) x 100",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "victoriametrics"
+      },
+      "gridPos": {
+        "x": 6,
+        "y": 46,
+        "w": 6,
+        "h": 4
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "victoriametrics"
+          },
+          "expr": "(\n  sum_over_time((\n    (\n      sum(increase(interpolate(hass_sensor_energy_wh{entity=~\"sensor.fronius_mppt_module_0_lifetime_energy|sensor.fronius_mppt_module_1_lifetime_energy\"})[5m]))\n      - sum(increase(interpolate(hass_sensor_energy_wh{entity=\"sensor.smart_meter_ts_65a_3_real_energy_produced\"})[5m]))\n      + sum(increase(interpolate(hass_sensor_energy_wh{entity=\"sensor.fronius_mppt_module_3_lifetime_energy\"})[5m]))\n      - sum(increase(interpolate(hass_sensor_energy_wh{entity=\"sensor.fronius_mppt_module_2_lifetime_energy\"})[5m]))\n    ) / 1000\n    * on() group_left\n    keep_last_value(sum(hass_sensor_monetary_kr_per_kwh{entity=\"sensor.stromligning_current_price_vat\"}))\n  )[$__range:5m])\n  + sum_over_time((\n    sum(increase(interpolate(hass_sensor_energy_wh{entity=\"sensor.smart_meter_ts_65a_3_real_energy_produced\"})[5m])) / 1000\n    * on() group_left\n    keep_last_value(sum(hass_sensor_monetary_kr_per_kwh{entity=\"sensor.stromligning_spotprice_ex_vat\"}))\n  )[$__range:5m])\n) / ($__range_s / 86400) * 365 / $solar_installation_cost * 100",
+          "legendFormat": "ARR",
+          "refId": "A",
+          "editorMode": "code"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 3
+              },
+              {
+                "color": "green",
+                "value": 5
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "graphMode": "area",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "auto",
+        "textMode": "auto",
+        "colorMode": "value"
+      }
+    },
+    {
+      "id": 31,
+      "type": "stat",
+      "title": "ROI",
+      "description": "Percentage of installation cost recouped in the selected time period",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "victoriametrics"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 46,
+        "w": 6,
+        "h": 4
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "victoriametrics"
+          },
+          "expr": "(\n  sum_over_time((\n    (\n      sum(increase(interpolate(hass_sensor_energy_wh{entity=~\"sensor.fronius_mppt_module_0_lifetime_energy|sensor.fronius_mppt_module_1_lifetime_energy\"})[5m]))\n      - sum(increase(interpolate(hass_sensor_energy_wh{entity=\"sensor.smart_meter_ts_65a_3_real_energy_produced\"})[5m]))\n      + sum(increase(interpolate(hass_sensor_energy_wh{entity=\"sensor.fronius_mppt_module_3_lifetime_energy\"})[5m]))\n      - sum(increase(interpolate(hass_sensor_energy_wh{entity=\"sensor.fronius_mppt_module_2_lifetime_energy\"})[5m]))\n    ) / 1000\n    * on() group_left\n    keep_last_value(sum(hass_sensor_monetary_kr_per_kwh{entity=\"sensor.stromligning_current_price_vat\"}))\n  )[$__range:5m])\n  + sum_over_time((\n    sum(increase(interpolate(hass_sensor_energy_wh{entity=\"sensor.smart_meter_ts_65a_3_real_energy_produced\"})[5m])) / 1000\n    * on() group_left\n    keep_last_value(sum(hass_sensor_monetary_kr_per_kwh{entity=\"sensor.stromligning_spotprice_ex_vat\"}))\n  )[$__range:5m])\n) / $solar_installation_cost * 100",
+          "legendFormat": "ROI",
+          "refId": "A",
+          "editorMode": "code"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "decimals": 2,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 0.5
+              },
+              {
+                "color": "green",
+                "value": 2
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "graphMode": "area",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "auto",
+        "textMode": "auto",
+        "colorMode": "value"
+      }
+    },
+    {
+      "id": 32,
+      "type": "stat",
+      "title": "PV Savings",
+      "description": "Value of PV energy consumed locally (direct to load + stored in battery), at import price",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "victoriametrics"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 50,
+        "w": 6,
+        "h": 4
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "victoriametrics"
+          },
+          "expr": "sum_over_time((\n  (\n    sum(increase(interpolate(hass_sensor_energy_wh{entity=~\"sensor.fronius_mppt_module_0_lifetime_energy|sensor.fronius_mppt_module_1_lifetime_energy\"})[5m]))\n    - sum(increase(interpolate(hass_sensor_energy_wh{entity=\"sensor.smart_meter_ts_65a_3_real_energy_produced\"})[5m]))\n  ) / 1000\n  * on() group_left\n  keep_last_value(sum(hass_sensor_monetary_kr_per_kwh{entity=\"sensor.stromligning_current_price_vat\"}))\n)[$__range:5m])",
+          "legendFormat": "PV Savings",
+          "refId": "A",
+          "editorMode": "code"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "currencyDKK",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 10
+              },
+              {
+                "color": "green",
+                "value": 30
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "graphMode": "area",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "auto",
+        "textMode": "auto",
+        "colorMode": "value"
+      }
+    },
+    {
+      "id": 33,
+      "type": "stat",
+      "title": "Battery Savings",
+      "description": "Net value of battery time-shifting: discharge credited at discharge-time price, charge debited at charge-time price",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "victoriametrics"
+      },
+      "gridPos": {
+        "x": 6,
+        "y": 50,
+        "w": 6,
+        "h": 4
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "victoriametrics"
+          },
+          "expr": "sum_over_time((\n  (\n    sum(increase(interpolate(hass_sensor_energy_wh{entity=\"sensor.fronius_mppt_module_3_lifetime_energy\"})[5m]))\n    - sum(increase(interpolate(hass_sensor_energy_wh{entity=\"sensor.fronius_mppt_module_2_lifetime_energy\"})[5m]))\n  ) / 1000\n  * on() group_left\n  keep_last_value(sum(hass_sensor_monetary_kr_per_kwh{entity=\"sensor.stromligning_current_price_vat\"}))\n)[$__range:5m])",
+          "legendFormat": "Battery Savings",
+          "refId": "A",
+          "editorMode": "code"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "currencyDKK",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 5
+              },
+              {
+                "color": "green",
+                "value": 15
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "graphMode": "area",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "auto",
+        "textMode": "auto",
+        "colorMode": "value"
+      }
+    },
+    {
+      "id": 30,
+      "type": "timeseries",
+      "title": "Electricity Prices",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "victoriametrics"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 54,
+        "w": 24,
+        "h": 8
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "victoriametrics"
+          },
+          "expr": "sum(hass_sensor_monetary_kr_per_kwh{entity=\"sensor.stromligning_current_price_vat\"})",
+          "legendFormat": "Import Price (incl VAT)",
+          "refId": "A",
+          "editorMode": "code"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "victoriametrics"
+          },
+          "expr": "sum(hass_sensor_monetary_kr_per_kwh{entity=\"sensor.stromligning_spotprice_ex_vat\"})",
+          "legendFormat": "Spot Price (ex VAT)",
+          "refId": "B",
+          "editorMode": "code"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "currencyDKK",
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 1,
+            "fillOpacity": 0,
+            "pointSize": 5,
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none"
+            }
+          },
+          "color": {
+            "mode": "palette-classic"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "calcs": []
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      }
+    }
+  ]
+}

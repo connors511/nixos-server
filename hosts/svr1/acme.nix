@@ -23,6 +23,28 @@
         "CLOUDFLARE_DNS_API_TOKEN_FILE" = config.sops.secrets.cloudflare-api-key.path;
       };
     };
+    certs."preview.mlad.dk" = {
+		domain = "preview.mlad.dk";
+		extraDomainNames = [ "*.preview.mlad.dk" ];
+		dnsProvider = "cloudflare";
+		dnsResolver = "1.1.1.1:53";
+		dnsPropagationCheck = true;
+		enableDebugLogs = true;
+		credentialFiles = {
+			"CLOUDFLARE_DNS_API_TOKEN_FILE" = config.sops.secrets.cloudflare-api-key.path;
+		};
+	};
+    certs."ansikt.dk" = {
+      domain = "*.ansikt.dk";
+      dnsProvider = "cloudflare";
+      dnsResolver = "1.1.1.1:53";
+      dnsPropagationCheck = true;
+      enableDebugLogs = true;
+      # inspo: https://go-acme.github.io/lego/dns/cloudflare/
+      credentialFiles = {
+        "CLOUDFLARE_DNS_API_TOKEN_FILE" = config.sops.secrets.cloudflare-api-key.path;
+      };
+    };
   };
 
   environment.persistence = {
