@@ -121,6 +121,9 @@ in {
 
   sops.secrets.mlarsen-backup-ssh.sopsFile = ../secrets.yaml;
 
+  programs.ssh.knownHosts."[backup.mlad.dk]:23".publicKey =
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIICf9svRenC/PLKIL9nk6K/pxQgoiFC41wTNvoIncOxs";
+
   systemd.timers.borgmatic = {
     enable = true;
     description = "borgmatic backup";
