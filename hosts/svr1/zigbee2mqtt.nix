@@ -33,7 +33,17 @@
     after = [ "mosquitto.service" ];
     serviceConfig = {
       Restart = lib.mkForce "always";
-      RestartSec = "10s";
+      RestartSec = lib.mkForce "30s";
+      ExecStartPre = pkgs.writeShellScript "wait-for-mqtt" ''
+        for i in {1..30}; do
+          if (exec 3<>/dev/tcp/localhost/1883) 2>/dev/null; then
+            exec 3>&-
+            exit 0
+          fi
+          sleep 2
+        done
+        exit 1
+      '';
     };
   };
 
