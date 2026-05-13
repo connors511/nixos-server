@@ -6,7 +6,7 @@
   # The original photos are accessible at /shared/mlarsen/immich/library
   immichLibrary = "/shared/mlarsen/immich/library";
   immichAppdataRoot = "${immichRoot}/appdata";
-  immichVersion = "release";
+  immichVersion = "v1.105.1";
 
   postgresRoot = "${immichAppdataRoot}/pgsql";
   postgresUser = "immich";
@@ -47,11 +47,7 @@ in {
       image = "ghcr.io/immich-app/immich-server:${immichVersion}";
       ports = ["127.0.0.1:2283:3001"];
       extraOptions = [
-        "--pull=newer"
-        # Force DNS resolution to only be the podman dnsname name server; by default podman provides a resolv.conf
-        # that includes both this server and the upstream system server, causing resolutions of other pod names
-        # to be inconsistent.
-        "--dns=10.88.0.1"
+        "--pull=missing"
       ];
       cmd = ["start.sh" "immich"];
       environment = {
@@ -69,16 +65,13 @@ in {
         "${immichLibrary}:/usr/src/app/upload/library"
         "/etc/localtime:/etc/localtime:ro"
       ];
+      dependsOn = ["immich_postgres" "immich_redis" "immich_machine_learning"];
     };
 
     immich_microservices = {
       image = "ghcr.io/immich-app/immich-server:${immichVersion}";
       extraOptions = [
-        "--pull=newer"
-        # Force DNS resolution to only be the podman dnsname name server; by default podman provides a resolv.conf
-        # that includes both this server and the upstream system server, causing resolutions of other pod names
-        # to be inconsistent.
-        "--dns=10.88.0.1"
+        "--pull=missing"
       ];
       cmd = ["start.sh" "microservices"];
       environment = {
@@ -96,11 +89,12 @@ in {
         "${immichLibrary}:/usr/src/app/upload/library"
         "/etc/localtime:/etc/localtime:ro"
       ];
+      dependsOn = ["immich_postgres" "immich_redis" "immich_machine_learning"];
     };
 
     immich_machine_learning = {
       image = "ghcr.io/immich-app/immich-machine-learning:${immichVersion}";
-      extraOptions = ["--pull=newer"];
+      extraOptions = ["--pull=missing"];
       environment = {
         IMMICH_VERSION = immichVersion;
       };
