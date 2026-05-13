@@ -161,7 +161,7 @@ in {
     }
   ];
 
-  services.borgmatic.settings.location.exclude_patterns = [
+  services.borgmatic.configurations.default.exclude_patterns = [
     # The immich database is dumped, no need to backup the live data
     immichAppdataRoot
     # Expensive to compute, but can be regenerated
