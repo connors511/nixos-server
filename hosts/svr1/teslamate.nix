@@ -7,7 +7,7 @@
 }:
 let
   postgresDb = "teslamate";
-  teslamateVersion = "1.29.2";
+  teslamateVersion = "4.0.1";
   teslamatePort = 4000;
 in
 {
@@ -94,17 +94,21 @@ virtualisation.oci-containers.containers.teslamate = {
      enable = true;
      datasources.settings = {
        apiVersion = 1;
+       deleteDatasources = [{
+         name = "TeslaMate";
+         orgId = 1;
+       }];
        datasources = [{
          name = "TeslaMate";
          type = "postgres";
-         uid = "teaslamate";
+         uid = "TeslaMate";
          access = "proxy";
          url = "localhost:${toString config.services.postgresql.settings.port}";
          user = postgresDb;
          database = postgresDb;
          isDefault = false;
          jsonData.sslmode = "disable";
-         jsonData.postgresVersion = 1500;
+         jsonData.postgresVersion = 1600;
 #         jsonData.version = "Flux";
 #         jsonData.organization = "mingOrg";
 #         jsonData.defaultBucket = "mingBucket";

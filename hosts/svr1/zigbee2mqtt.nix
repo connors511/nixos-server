@@ -11,11 +11,18 @@
    remoteHomeAssistant = true;
  in
  {
-  sops.secrets."mqtt/secret/zigbee2mqtt" = {
+  sops.secrets.zigbee2mqtt-mqtt-password = {
     sopsFile = ../common/secrets.yaml;
-    path = "/var/lib/zigbee2mqtt/secret.yaml";
+    key = "mqtt/pass/zigbee2mqtt";
+  };
+
+  sops.templates."zigbee2mqtt-secret.yaml" = {
+    path = "/run/secrets/zigbee2mqtt-secret.yaml";
     owner = "${config.systemd.services.zigbee2mqtt.serviceConfig.User}";
     group = "${config.systemd.services.zigbee2mqtt.serviceConfig.Group}";
+    content = ''
+      password: "${config.sops.placeholder.zigbee2mqtt-mqtt-password}"
+    '';
   };
 
   sops.secrets."zigbee_network" = {
@@ -34,16 +41,23 @@
     serviceConfig = {
       Restart = lib.mkForce "always";
       RestartSec = lib.mkForce "30s";
-      ExecStartPre = [ (pkgs.writeShellScript "wait-for-mqtt" ''
-        for i in {1..30}; do
-          if (exec 3<>/dev/tcp/localhost/1883) 2>/dev/null; then
-            exec 3>&-
-            exit 0
-          fi
-          sleep 2
-        done
-        exit 1
-      '') ];
+      ExecStartPre = [
+        (pkgs.writeShellScript "install-zigbee2mqtt-secret" ''
+          rm -f /var/lib/zigbee2mqtt/secret.yaml
+          cp ${config.sops.templates."zigbee2mqtt-secret.yaml".path} /var/lib/zigbee2mqtt/secret.yaml
+          chmod 0400 /var/lib/zigbee2mqtt/secret.yaml
+        '')
+        (pkgs.writeShellScript "wait-for-mqtt" ''
+          for i in {1..30}; do
+            if (exec 3<>/dev/tcp/localhost/1883) 2>/dev/null; then
+              exec 3>&-
+              exit 0
+            fi
+            sleep 2
+          done
+          exit 1
+        '')
+      ];
     };
   };
 
