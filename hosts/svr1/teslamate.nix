@@ -107,6 +107,7 @@ virtualisation.oci-containers.containers.teslamate = {
          user = postgresDb;
          database = postgresDb;
          isDefault = false;
+         jsonData.database = postgresDb;
          jsonData.sslmode = "disable";
          jsonData.postgresVersion = 1600;
 #         jsonData.version = "Flux";
