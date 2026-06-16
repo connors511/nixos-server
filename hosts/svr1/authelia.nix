@@ -16,19 +16,15 @@
       default_redirection_url = "https://mlad.dk";
 
       server = {
-        host = "127.0.0.1";
-        port = 9091;
+        address = "tcp://127.0.0.1:9091/";
+        buffers = {
+            read = 8192;
+        };
       };
 
       log = {
         level = "debug";
         format = "text";
-      };
-
-      server = {
-        buffers = {
-            read = 8192;
-        };
       };
 
       authentication_backend = {

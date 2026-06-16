@@ -33,9 +33,27 @@ let
 in
 {
 
+  users.users.victoriametrics = {
+    isSystemUser = true;
+    group = "victoriametrics";
+  };
+  users.groups.victoriametrics = {};
+
   services.victoriametrics = {
     enable = true;
-    retentionPeriod = 120; # 10 years in months
+    extraOptions = [
+      "-search.maxPointsSubqueryPerTimeseries=300000"
+    ];
+    retentionPeriod = "120"; # 10 years in months
+  };
+
+  systemd.services.victoriametrics.serviceConfig = {
+    User = "victoriametrics";
+    Group = "victoriametrics";
+    DynamicUser = lib.mkForce false;
+    StateDirectory = lib.mkForce "";
+    BindPaths = "/persist/var/lib/private/victoriametrics:/var/lib/victoriametrics";
+    PrivateUsers = lib.mkForce false;
   };
 
   networking.firewall.allowedTCPPorts = [9100 8428];
@@ -65,6 +83,9 @@ in
   environment.persistence."/persist".directories = [
     {
       directory = "/var/lib/private/victoriametrics";
+      user = "victoriametrics";
+      group = "victoriametrics";
+      mode = "0700";
     }
   ];
 

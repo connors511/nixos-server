@@ -34,7 +34,7 @@
     serviceConfig = {
       Restart = lib.mkForce "always";
       RestartSec = lib.mkForce "30s";
-      ExecStartPre = pkgs.writeShellScript "wait-for-mqtt" ''
+      ExecStartPre = [ (pkgs.writeShellScript "wait-for-mqtt" ''
         for i in {1..30}; do
           if (exec 3<>/dev/tcp/localhost/1883) 2>/dev/null; then
             exec 3>&-
@@ -43,7 +43,7 @@
           sleep 2
         done
         exit 1
-      '';
+      '') ];
     };
   };
 

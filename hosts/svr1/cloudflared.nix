@@ -5,15 +5,11 @@
   ...
 }: {
   sops.secrets.cloudflared-creds = {
-    owner = config.services.cloudflared.user;
-    inherit (config.services.cloudflared) group;
     format = "binary";
     sopsFile = ./../common/secrets/cloudflare-cred-file;
   };
 
   sops.secrets.cloudflare-token = {
-    owner = config.services.cloudflared.user;
-    inherit (config.services.cloudflared) group;
     format = "binary";
     sopsFile = ./../common/secrets/cloudflare-cert.pem;
   };

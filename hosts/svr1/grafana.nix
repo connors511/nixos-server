@@ -41,6 +41,9 @@ in
        security = {
          admin_user = "mlarsen";
          admin_password = "$__file{${config.sops.secrets.grafana-admin-password.path}}";
+         # Preserve the old NixOS/Grafana default so existing encrypted values
+         # in Grafana's database remain readable after the nixpkgs upgrade.
+         secret_key = "SW2YcwTIb9zpOOhoPsMm";
        };
      };
 

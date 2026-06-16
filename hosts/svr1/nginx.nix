@@ -6,6 +6,10 @@
     recommendedGzipSettings = true;
     recommendedOptimisation = true;
     clientMaxBodySize = "300m";
+    resolver = {
+      addresses = [ "10.10.1.1" ];
+      valid = "30s";
+    };
   };
 
   networking.firewall.allowedTCPPorts = [80 443];
