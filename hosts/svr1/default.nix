@@ -17,10 +17,10 @@
     # ./arr/prowlarr.nix
     # ./arr/sonarr.nix
 #    ./calibre-server.nix
-    ./firefly.nix
+#    ./firefly.nix
     ./grocy.nix
-    ./immich.nix
-    ./home-assistant
+#    ./immich.nix
+#    ./home-assistant
     ./hardware-configuration.nix
 #    ./mattermost.nix
 #    ./microbin.nix
@@ -35,7 +35,7 @@
     ./postgresql.nix
     # ./qbittorrent.nix # needs to change the docker image to aarm64
 #    ./rss.nix
-    ./tandoor.nix
+#    ./tandoor.nix
 #    ./uptime-kuma.nix
 #    ./wallabag.nix
 #    ./web-server.nix
@@ -47,7 +47,7 @@
     ./grafana.nix
     ./victoriametrics.nix
     ./teslamate.nix
-    ./mealie.nix
+#    ./mealie.nix
     ./changedetection-io.nix
     ./ntfy.nix
     ./proxies.nix

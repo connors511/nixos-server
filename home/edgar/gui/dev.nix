@@ -5,7 +5,7 @@ in {
     (pluginify clion)
     (pluginify idea-ultimate)
 
-    pkgs.stable.qtcreator
-    pkgs.stable.staruml
+    pkgs.qtcreator
+    pkgs.staruml
   ];
 }

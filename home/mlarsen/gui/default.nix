@@ -15,13 +15,13 @@
     ./zathura.nix
   ];
 
-  home.packages = with pkgs.stable; [
+  home.packages = with pkgs; [
     anytype
-    pkgs.beeper # evolves fast
+    beeper
     calibre
     keepassxc
     libsForQt5.ark
-    pkgs.obsidian # TODO: move to stable when 24.05 releases
+    obsidian
     plex-media-player
     qbittorrent
     vlc

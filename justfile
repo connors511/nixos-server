@@ -8,11 +8,19 @@ deploy machine ip='':
   elif [ -z "{{ip}}" ]; then
     sudo nixos-rebuild switch --fast --flake ".#{{machine}}"
   else
-    nix run nixpkgs#nixos-rebuild -- switch --fast --flake ".#{{machine}}" --target-host "mlarsen@{{ip}}" --use-remote-sudo --build-host "mlarsen@{{ip}}"
+    nix run nixpkgs#nixos-rebuild -- switch --fast --flake ".#{{machine}}" --target-host "mlarsen@{{ip}}" --build-host "mlarsen@{{ip}}" --elevate=sudo --ask-elevate-password
   fi
 
-boot machine:
-    sudo nixos-rebuild boot --fast --flake ".#{{machine}}"
+boot machine ip='':
+  #!/usr/bin/env sh
+  if [ -z "{{ip}}" ]; then
+    sudo nixos-rebuild boot --flake ".#{{machine}}"
+  else
+    nix run nixpkgs#nixos-rebuild -- boot --flake ".#{{machine}}" --target-host "mlarsen@{{ip}}" --build-host "mlarsen@{{ip}}" --elevate=sudo --ask-elevate-password
+  fi
+
+test-build machine ip='svr1.lan':
+  nix run nixpkgs#nixos-rebuild -- build --flake ".#{{machine}}" --target-host "mlarsen@{{ip}}" --build-host "mlarsen@{{ip}}"
 
 up:
   nix flake update

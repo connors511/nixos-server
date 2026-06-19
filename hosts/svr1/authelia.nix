@@ -6,6 +6,7 @@
 
   services.authelia.instances.main = {
     enable = true;
+    package = pkgs.unstable.authelia;
     secrets = {
       jwtSecretFile = "/var/lib/authelia-main/jwt-secret";
       storageEncryptionKeyFile = "/var/lib/authelia-main/storage-encryption-file";
