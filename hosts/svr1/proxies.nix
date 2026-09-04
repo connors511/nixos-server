@@ -68,6 +68,8 @@ in {
     "lidarr.lan"    = internalProxyRemote "homeassistant.lan" 8686;
     "prowlarr.lan"  = internalProxyRemote "homeassistant.lan" 9696;
     "navidrome.lan"  = internalProxyRemote "homeassistant.lan" 4533;
+    "chat.lan"  = internalProxyRemoteWs "stable-diffusion.lan" 3000;
+    "chat"  = internalProxyRemoteWs "stable-diffusion.lan" 3000;
 
 #    "multica.lan" = internalProxyRemoteWs "multica-lxc" 3000;
 #    "multica-app.lan" = internalProxyRemoteWs "multica-lxc" 3000;
@@ -87,6 +89,8 @@ in {
     "requests.lan"  = internalProxyRemote "homeassistant.lan" 5055;
 
     "dp.mlad.dk" = externalProxyPublic "ansikt.lan" 88;
+    "crm.mlad.dk" = externalProxyPublic "ansikt.lan" 88;
+    "tp.mlad.dk" = externalProxyPublic "ansikt.lan" 88;
     "dp.lan"	= internalProxyRemote "ansikt.lan" 88;
 
     # External with Authelia
