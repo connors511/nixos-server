@@ -3,9 +3,7 @@
     enable = true;
   };
 
-  services.nginx.virtualHosts."prowlarr.bizel.fr" = {
-    useACMEHost = "bizel.fr";
-    forceSSL = true;
+  services.nginx.virtualHosts."prowlarr.new.lan" = {
     locations."^~ /" = {
       proxyPass = "http://127.0.0.1:9696";
     };

@@ -2,13 +2,11 @@
   services.navidrome = {
     enable = true;
     settings = {
-      MusicFolder = "/shared/mlarsen/music";
+      MusicFolder = "/share/downloaders/Music";
     };
   };
 
-  services.nginx.virtualHosts."navidrome.bizel.fr" = {
-    useACMEHost = "bizel.fr";
-    forceSSL = true;
+  services.nginx.virtualHosts."navidrome.new.lan" = {
     locations."^~ /" = {
       proxyPass = "http://${config.services.navidrome.settings.Address}:${toString config.services.navidrome.settings.Port}";
     };

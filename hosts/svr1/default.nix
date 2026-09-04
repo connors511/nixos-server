@@ -10,21 +10,19 @@
     ./acme.nix
     ./cloudflared.nix
 #    ./actualbudget.nix
-#     ./arr/bazarr.nix
-#     ./arr/lidarr.nix
-    # ./arr/radarr.nix
-    # ./arr/readarr.nix
-    # ./arr/prowlarr.nix
-    # ./arr/sonarr.nix
+    ./arr
 #    ./calibre-server.nix
 #    ./firefly.nix
     ./grocy.nix
 #    ./immich.nix
 #    ./home-assistant
     ./hardware-configuration.nix
+    ./jellyfin.nix
+    ./media-storage.nix
 #    ./mattermost.nix
 #    ./microbin.nix
-#    ./navidrome.nix
+    ./navidrome.nix
+    ./nzbget.nix
 #    ./netdata.nix
 #    ./nextcloud.nix
 #    ./nfs.nix
@@ -60,6 +58,12 @@
   };
 
   time.timeZone = "Europe/Copenhagen";
+
+  # Impermanence creates parents of persisted directories with mode 0755.
+  # DynamicUser StateDirectory units require this shared parent to be private.
+  systemd.tmpfiles.rules = [
+    "d /var/lib/private 0700 root root -"
+  ];
 
   environment.systemPackages = with pkgs; [
     rsync

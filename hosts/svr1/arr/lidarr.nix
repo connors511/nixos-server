@@ -3,9 +3,7 @@
     enable = true;
   };
 
-  services.nginx.virtualHosts."lidarr.bizel.fr" = {
-    useACMEHost = "bizel.fr";
-    forceSSL = true;
+  services.nginx.virtualHosts."lidarr.new.lan" = {
     locations."^~ /" = {
       proxyPass = "http://127.0.0.1:8686";
     };
