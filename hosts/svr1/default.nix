@@ -26,6 +26,7 @@
 #    ./netdata.nix
 #    ./nextcloud.nix
 #    ./nfs.nix
+    ./open-webui.nix
     ./nginx.nix
 #    ./paperless.nix
 #    ./plausible.nix
@@ -64,6 +65,18 @@
   systemd.tmpfiles.rules = [
     "d /var/lib/private 0700 root root -"
   ];
+
+  # Impermanence creates persistent parent directories with mode 0755, then
+  # mirrors that mode onto the live path. Correct it after directory creation
+  # so DynamicUser StateDirectory units can start during activation.
+  system.activationScripts.privateStateDirectoryPermissions = {
+    deps = ["createPersistentStorageDirs"];
+    text = ''
+      ${pkgs.coreutils}/bin/mkdir -p /persist/var/lib/private /var/lib/private
+      ${pkgs.coreutils}/bin/chown root:root /persist/var/lib/private /var/lib/private
+      ${pkgs.coreutils}/bin/chmod 0700 /persist/var/lib/private /var/lib/private
+    '';
+  };
 
   environment.systemPackages = with pkgs; [
     rsync
