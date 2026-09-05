@@ -3,7 +3,7 @@
     enable = true;
   };
 
-  services.nginx.virtualHosts."prowlarr.new.lan" = {
+  services.nginx.virtualHosts."prowlarr.lan" = {
     locations."^~ /" = {
       proxyPass = "http://127.0.0.1:9696";
     };

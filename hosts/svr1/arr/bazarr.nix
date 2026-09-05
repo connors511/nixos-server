@@ -3,7 +3,7 @@
     enable = true;
   };
 
-  services.nginx.virtualHosts."bazarr.new.lan" = {
+  services.nginx.virtualHosts."bazarr.lan" = {
     locations."^~ /" = {
       proxyPass = "http://127.0.0.1:6767";
     };

@@ -63,16 +63,6 @@ in {
   services.nginx.virtualHosts = {
     # Internal (.lan) - proxied to local services
     "home.lan"      = internalProxy 8082;  # Homepage
-    "bazarr.lan"    = internalProxyRemote "homeassistant.lan" 6767;
-    "lidarr.lan"    = internalProxyRemote "homeassistant.lan" 8686;
-    "nzbget.lan"    = internalProxyRemote "homeassistant.lan" 6789;
-    "prowlarr.lan"  = internalProxyRemote "homeassistant.lan" 9696;
-    "radarr.lan"    = internalProxyRemote "homeassistant.lan" 7878;
-    "readarr.lan"   = internalProxyRemote "homeassistant.lan" 8787;
-    "sonarr.lan"    = internalProxyRemote "homeassistant.lan" 8989;
-    "navidrome.lan" = internalProxyRemote "homeassistant.lan" 4533;
-    "chat.lan"  = internalProxyRemoteWs "stable-diffusion.lan" 3000;
-    "chat"  = internalProxyRemoteWs "stable-diffusion.lan" 3000;
 
 #    "multica.lan" = internalProxyRemoteWs "multica-lxc" 3000;
 #    "multica-app.lan" = internalProxyRemoteWs "multica-lxc" 3000;
@@ -87,10 +77,6 @@ in {
 
 #    "sd.lan"	= internalProxyRemote "stable-diffusion" 8188;
 
-    # Keep canonical media routes on Home Assistant during migration.
-    "jellyfin.lan" = internalProxyRemote "homeassistant.lan" 8096;
-    "requests.lan" = internalProxyRemote "homeassistant.lan" 5055;
-
     "dp.mlad.dk" = externalProxyPublic "ansikt.lan" 88;
     "crm.mlad.dk" = externalProxyPublic "ansikt.lan" 88;
     "tp.mlad.dk" = externalProxyPublic "ansikt.lan" 88;
@@ -100,8 +86,6 @@ in {
 #    "grafana.mlad.dk" = externalProxy 3001;
 
     # External public (own auth)
-    "jellyfin.mlad.dk" = externalProxyPublic "homeassistant.lan" 8096;
-    "requests.mlad.dk" = externalProxyPublic "homeassistant.lan" 5055;
 #    "ansikt.mlad.dk" = externalProxyPublicWs "frigate" 4000;
 #    "img.ansikt.mlad.dk" = externalProxyPublic "frigate" 8080;
     "ansikt.dk" = externalProxyPublicWs "frigate" 4000;

@@ -3,7 +3,7 @@
     enable = true;
   };
 
-  services.nginx.virtualHosts."radarr.new.lan" = {
+  services.nginx.virtualHosts."radarr.lan" = {
     locations."^~ /" = {
       proxyPass = "http://127.0.0.1:7878";
     };

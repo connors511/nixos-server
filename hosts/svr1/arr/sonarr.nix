@@ -3,7 +3,7 @@
     enable = true;
   };
 
-  services.nginx.virtualHosts."sonarr.new.lan" = {
+  services.nginx.virtualHosts."sonarr.lan" = {
     locations."^~ /" = {
       proxyPass = "http://127.0.0.1:8989";
     };

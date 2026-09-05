@@ -32,6 +32,7 @@
 #    ./plausible.nix
     # ./plex.nix
     ./postgresql.nix
+    ./searxng.nix
     # ./qbittorrent.nix # needs to change the docker image to aarm64
 #    ./rss.nix
 #    ./tandoor.nix

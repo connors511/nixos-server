@@ -6,7 +6,7 @@
     };
   };
 
-  services.nginx.virtualHosts."navidrome.new.lan" = {
+  services.nginx.virtualHosts."navidrome.lan" = {
     locations."^~ /" = {
       proxyPass = "http://${config.services.navidrome.settings.Address}:${toString config.services.navidrome.settings.Port}";
     };

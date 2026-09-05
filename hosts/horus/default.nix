@@ -12,7 +12,6 @@
     # ./arr/bazarr.nix
     # ./arr/lidarr.nix
     # ./arr/radarr.nix
-    # ./arr/readarr.nix
     # ./arr/prowlarr.nix
     # ./arr/sonarr.nix
     ./calibre-server.nix

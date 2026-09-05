@@ -3,7 +3,7 @@
     enable = true;
   };
 
-  services.nginx.virtualHosts."lidarr.new.lan" = {
+  services.nginx.virtualHosts."lidarr.lan" = {
     locations."^~ /" = {
       proxyPass = "http://127.0.0.1:8686";
     };

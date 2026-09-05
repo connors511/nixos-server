@@ -5,7 +5,6 @@
     "jellyfin"
     "lidarr"
     "radarr"
-    "readarr"
     "sonarr"
     "nzbget"
     "navidrome"
@@ -14,7 +13,6 @@
     "bazarr"
     "lidarr"
     "radarr"
-    "readarr"
     "sonarr"
   ];
 in {

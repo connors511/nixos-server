@@ -7,9 +7,17 @@
   };
 
   services.nginx.virtualHosts = {
-    "requests.new.lan".locations."/" = {
+    "requests.lan".locations."/" = {
       proxyPass = "http://127.0.0.1:5055";
       proxyWebsockets = true;
+    };
+
+    "requests.mlad.dk" = {
+      useACMEHost = "mlad.dk";
+      locations."/" = {
+        proxyPass = "http://127.0.0.1:5055";
+        proxyWebsockets = true;
+      };
     };
   };
 

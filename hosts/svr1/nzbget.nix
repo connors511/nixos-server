@@ -6,7 +6,7 @@
     settings.MainDir = "/var/lib/nzbget";
   };
 
-  services.nginx.virtualHosts."nzbget.new.lan" = {
+  services.nginx.virtualHosts."nzbget.lan" = {
     locations."^~ /" = {
       proxyPass = "http://127.0.0.1:6789";
     };

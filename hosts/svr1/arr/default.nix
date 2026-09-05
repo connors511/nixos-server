@@ -4,7 +4,6 @@
     ./lidarr.nix
     ./prowlarr.nix
     ./radarr.nix
-    ./readarr.nix
     ./seerr.nix
     ./sonarr.nix
   ];
@@ -16,7 +15,6 @@
     "lidarr"
     "prowlarr"
     "radarr"
-    "readarr"
     "sonarr"
   ] (_: {
     serviceConfig = {

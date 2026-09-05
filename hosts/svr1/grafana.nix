@@ -53,9 +53,13 @@ in
      }];
    };
 
-  services.nginx.virtualHosts."grafana.mlad.dk" = {
-    enableAuthelia = true;
-    locations."/".extraConfig = "proxy_pass http://localhost:3001;";
+  services.nginx.virtualHosts = {
+    "grafana.lan".locations."/".extraConfig = "proxy_pass http://localhost:3001;";
+
+    "grafana.mlad.dk" = {
+      enableAuthelia = true;
+      locations."/".extraConfig = "proxy_pass http://localhost:3001;";
+    };
   };
 
   sops.secrets.grafana-admin-password = {

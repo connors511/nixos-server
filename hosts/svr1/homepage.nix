@@ -7,7 +7,6 @@
 #   HOMEPAGE_VAR_RADARR_API_KEY=<from Radarr → Settings → General>
 #   HOMEPAGE_VAR_LIDARR_API_KEY=<from Lidarr → Settings → General>
 #   HOMEPAGE_VAR_PROWLARR_API_KEY=<from Prowlarr → Settings → General>
-#   HOMEPAGE_VAR_QBIT_PASSWORD=<qBittorrent password>
 #   HOMEPAGE_VAR_HA_TOKEN=<Home Assistant long-lived access token>
 #
 # With agenix, encrypt this file and reference via:
@@ -39,6 +38,7 @@ in {
 
   services.homepage-dashboard = {
     enable = true;
+    allowedHosts = "home.lan,localhost:8082,127.0.0.1:8082";
 
 #  	environmentFile = config.sops.secrets.homepage-env.path;
 
@@ -55,6 +55,10 @@ in {
         Downloads = {
           style = "row";
           columns = 3;
+        };
+        AI = {
+          style = "row";
+          columns = 2;
         };
         Infrastructure = {
           style = "row";
@@ -110,7 +114,7 @@ in {
             };
           }
           {
-            "Jellyseerr" = {
+            "Seerr" = {
               icon = "jellyseerr";
               href = "http://requests.lan";
               description = "Media requests";
@@ -189,6 +193,40 @@ in {
 #              };
             };
           }
+          {
+            "Bazarr" = {
+              icon = "bazarr";
+              href = "http://bazarr.lan";
+              description = "Subtitle manager";
+            };
+          }
+          {
+            "NZBGet" = {
+              icon = "nzbget";
+              href = "http://nzbget.lan";
+              description = "Usenet downloader";
+            };
+          }
+        ];
+      }
+
+      # ========== AI ==========
+      {
+        "AI" = [
+          {
+            "Open WebUI" = {
+              icon = "open-webui";
+              href = "http://chat.lan";
+              description = "AI chat";
+            };
+          }
+          {
+            "SearXNG" = {
+              icon = "searxng";
+              href = "http://search.lan";
+              description = "Private metasearch";
+            };
+          }
         ];
       }
 
@@ -208,7 +246,7 @@ in {
             };
           }
           {
-            "Proxmox" = {
+            "Proxmox 01" = {
               icon = "proxmox";
               href = proxmox;
               description = "Virtualization";
@@ -221,10 +259,17 @@ in {
             };
           }
           {
-            "OPNsense" = {
-              icon = "opnsense";
-              href = "https://opnsense.lan";
-              description = "Router/Firewall";
+            "Proxmox 02" = {
+              icon = "proxmox";
+              href = "https://proxmox02:8006/";
+              description = "Virtualization";
+            };
+          }
+          {
+            "Proxmox 03" = {
+              icon = "proxmox";
+              href = "https://proxmox03:8006/";
+              description = "Virtualization";
             };
           }
           {
@@ -241,29 +286,17 @@ in {
       {
         "Network" = [
           {
-            "AdGuard Home" = {
-              icon = "adguard-home";
-              href = "http://adguard.lan";
-              description = "DNS ad blocking";
-#              widget = {
-#                type = "adguard";
-#                url = "http://127.0.0.1:3000";  # Adjust to AdGuard's address
-#                username = "admin";
-#                password = "{{HOMEPAGE_VAR_ADGUARD_PASSWORD}}";
-#              };
+            "OPNsense" = {
+              icon = "opnsense";
+              href = "https://opnsense.lan/";
+              description = "Router/Firewall";
             };
           }
           {
-            "Unifi" = {
-              icon = "unifi";
-              href = "https://homeassistant.lan:8443";
-              description = "Network controller";
-#              widget = {
-#                type = "unifi";
-#                url = "https://unifi.lan";
-#                username = "{{HOMEPAGE_VAR_UNIFI_USER}}";
-#                password = "{{HOMEPAGE_VAR_UNIFI_PASSWORD}}";
-#              };
+            "AdGuard Home" = {
+              icon = "adguard-home";
+              href = "http://opnsense.lan:3000/";
+              description = "DNS ad blocking";
             };
           }
         ];
