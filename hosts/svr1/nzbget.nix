@@ -1,9 +1,12 @@
-{
+{config, ...}: {
   services.nzbget = {
     enable = true;
     # /config is the container's state directory. The native NixOS service
     # keeps the equivalent state, including nzbget.conf, here instead.
-    settings.MainDir = "/var/lib/nzbget";
+    settings = {
+      CertStore = config.security.pki.caBundle;
+      MainDir = "/var/lib/nzbget";
+    };
   };
 
   services.nginx.virtualHosts."nzbget.lan" = {

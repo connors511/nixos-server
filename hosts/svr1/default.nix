@@ -11,6 +11,8 @@
     ./cloudflared.nix
 #    ./actualbudget.nix
     ./arr
+#    ./bookshelf.nix
+    ./calibre-web-automated.nix
 #    ./calibre-server.nix
 #    ./firefly.nix
     ./grocy.nix
@@ -33,6 +35,7 @@
     # ./plex.nix
     ./postgresql.nix
     ./searxng.nix
+    ./shelfmark.nix
     # ./qbittorrent.nix # needs to change the docker image to aarm64
 #    ./rss.nix
 #    ./tandoor.nix

@@ -56,6 +56,10 @@ in {
           style = "row";
           columns = 3;
         };
+        Books = {
+          style = "row";
+          columns = 2;
+        };
         AI = {
           style = "row";
           columns = 2;
@@ -207,6 +211,33 @@ in {
               description = "Usenet downloader";
             };
           }
+        ];
+      }
+
+      # ========== BOOKS ==========
+      {
+        "Books" = [
+          {
+            "Calibre-Web Automated" = {
+              icon = "calibre-web";
+              href = "http://books.lan";
+              description = "Book library";
+            };
+          }
+          {
+            "Shelfmark" = {
+              icon = "calibre-web-automated-book-downloader";
+              href = "http://shelfmark.lan";
+              description = "Book search and requests";
+            };
+          }
+#          {
+#            "Bookshelf" = {
+#              icon = "readarr";
+#              href = "http://bookshelf.lan";
+#              description = "Book collection manager";
+#            };
+#          }
         ];
       }
 
